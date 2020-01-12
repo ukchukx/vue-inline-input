@@ -22,8 +22,27 @@
     @blur="handleBlur">
   </textarea>
 
-  <span :class="labelClasses" v-else @click="toggle()">
+  <select 
+    v-else-if="editing && isSelect"
+    :class="inputClasses"
+    :value="value"
+    ref="inputEl" 
+    @change="handleChange"
+    @blur="handleBlur">
+    <option v-if="placeholder" disabled value>{{ placeholder }}</option>
+    <option 
+      :key="i"
+      v-for="(o, i) in options" 
+      :value="o.value">
+      {{ o.label }}
+    </option>
+  </select>
+
+  <span v-else :class="labelClasses" @click="toggle()">
     {{ label }}
+    <slot name="selectCaret">
+      <span v-if="isSelect">&#9660;</span>
+    </slot>
   </span>
 </template>
 <script>
@@ -61,6 +80,10 @@ export default {
     cols: {
       type: Number,
       default: () => 20
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -78,9 +101,15 @@ export default {
     isTextArea() {
       return this.type === 'textarea';
     },
+    isSelect() {
+      return this.type === 'select';
+    },
     label() {
       if (this.isNumber) return this.value === '' ? this.placeholder : this.value;
       if (this.isText || this.isTextArea) return this.value ? this.value : this.placeholder;
+      // Select
+      return this.options
+        .reduce((currLabel, { label, value }) => this.value === value ? label : currLabel, this.value);
     }
   },
   methods: {

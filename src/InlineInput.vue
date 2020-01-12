@@ -10,6 +10,18 @@
     @input="handleInput"
     @blur="handleBlur">
 
+  <textarea 
+    v-else-if="editing && isTextArea"
+    :class="inputClasses"
+    :value="value"
+    :placeholder="placeholder"
+    ref="inputEl"
+    :rows="rows"
+    :cols="cols"
+    @input="handleInput"
+    @blur="handleBlur">
+  </textarea>
+
   <span :class="labelClasses" v-else @click="toggle()">
     {{ label }}
   </span>
@@ -41,6 +53,14 @@ export default {
     inputClasses: {
       type: String,
       default: () => ''
+    },
+    rows: {
+      type: Number,
+      default: () => 2
+    },
+    cols: {
+      type: Number,
+      default: () => 20
     }
   },
   data() {
@@ -55,9 +75,12 @@ export default {
     isNumber() {
       return this.type === 'number';
     },
+    isTextArea() {
+      return this.type === 'textarea';
+    },
     label() {
       if (this.isNumber) return this.value === '' ? this.placeholder : this.value;
-      if (this.isText) return this.value ? this.value : this.placeholder;
+      if (this.isText || this.isTextArea) return this.value ? this.value : this.placeholder;
     }
   },
   methods: {

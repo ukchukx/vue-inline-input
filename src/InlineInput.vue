@@ -84,7 +84,8 @@ export default {
   },
   data() {
     return {
-      editing: false
+      editing: false,
+      selectedIndex: this.options.findIndex(o => o.value === this.value)
     };
   },
   computed: {
@@ -104,8 +105,7 @@ export default {
       if (this.isNumber) return this.value === '' ? this.placeholder : this.value;
       if (this.isText || this.isTextArea) return this.value ? this.value : this.placeholder;
       // Select
-      return this.options
-        .reduce((currLabel, { label, value }) => this.value === value ? label : currLabel, this.value);
+      return this.selectedIndex === -1 ? this.placeholder : this.options[this.selectedIndex].label;
     }
   },
   methods: {
@@ -129,7 +129,8 @@ export default {
     handleInput() {
       this.emitValue();
     },
-    handleChange() {
+    handleChange(e) {
+      this.selectedIndex = this.placeholder ? e.target.selectedIndex - 1 : e.target.selectedIndex;
       this.emitValue();
     },
     emitValue() {

@@ -41,7 +41,6 @@ See the props table below for the available options.
 | Property | Type | Description | Default |
 |:--|:--|:--|:--|
 | type | string | The input type. Could be text, number, textarea or select | text |
-| emit-on-blur | boolean | Save input changes only on blur | false |
 | placeholder | string | Text to be shown as a placeholder while there is no input |  empty string |
 | label-classes | string | CSS classes for the label element | empty string |
 | input-classes | string | CSS classes for the input element | empty string |

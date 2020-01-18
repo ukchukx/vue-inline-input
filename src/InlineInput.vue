@@ -57,10 +57,6 @@ export default {
       type: String,
       default: () => 'text'
     },
-    emitOnBlur: {
-      type: Boolean,
-      default: () => false
-    },
     placeholder: {
       type: String,
       default: () => ''
@@ -130,7 +126,7 @@ export default {
       this.emitValue();
     },
     handleInput() {
-      if (!this.emitOnBlur) this.emitValue();
+      this.emitValue();
     },
     handleChange() {
       this.emitValue();

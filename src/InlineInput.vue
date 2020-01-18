@@ -124,6 +124,7 @@ export default {
     handleBlur() {
       this.toggle();
       this.emitValue();
+      this.$emit('blur', this.getValue());
     },
     handleInput() {
       this.emitValue();
@@ -132,7 +133,10 @@ export default {
       this.emitValue();
     },
     emitValue() {
-      this.$emit('input', this.isNumber ? parseFloat(this.$refs.inputEl.value) : this.$refs.inputEl.value);
+      this.$emit('input', this.getValue());
+    },
+    getValue() {
+      return this.isNumber ? +this.$refs.inputEl.value : this.$refs.inputEl.value;
     }
   }
 };

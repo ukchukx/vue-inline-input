@@ -4,6 +4,10 @@
 
 Displays as text and becomes editable by clicking or tapping.
 
+![Example](https://miro.medium.com/max/280/0*YKWiXkXkkdv_a7Ha.gif)
+
+You can read how it was built [here](https://medium.com/@ukchukx/ad7ef6403694)
+
 ## Installation
 
 ```js
